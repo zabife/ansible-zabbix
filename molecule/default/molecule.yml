@@ -1,13 +1,14 @@
 ---
 dependency:
   name: galaxy
+  options:
+    role-file: requirements.yml
 driver:
   name: docker
 lint:
   name: yamllint
   options:
-    config-data:
-      ignore: .env
+    config-file: molecule/default/yamllint.yml
 platforms:
   - name: instance
     image: centos:7

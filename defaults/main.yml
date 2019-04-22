@@ -1,2 +1,16 @@
 ---
-# defaults file for zabbix
+# Overall Zabbix
+zabbix_version: 3.4
+zabbix_server_package_state: present
+
+# Zabbix server
+zabbix_server_name: zabbix.aeb.gov.br
+zabbix_server_database: pgsql
+zabbix_server_listenport: 10051
+zabbix_server_dbhost: docker.aeb.gov.br
+zabbix_server_dbname: zabbix
+zabbix_server_dbuser: zabbix
+zabbix_server_dbpassword: zabbix
+zabbix_server_dbport: 5432
+zabbix_database_creation: true
+zabbix_server_install_database_client: true
