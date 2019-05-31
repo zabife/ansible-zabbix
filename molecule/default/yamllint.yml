@@ -4,6 +4,6 @@ ignore: |
   .env
 rules:
   line-length:
-    max: 120
+    max: 300
     level: warning
   truthy: disable

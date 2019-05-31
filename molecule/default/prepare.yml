@@ -1,0 +1,43 @@
+---
+- name: Install PostgreSQL database
+  hosts: all
+  pre_tasks:
+    - name: Install ansible postgresql server dependencies
+      yum:
+        name: "{{ packages }}"
+      vars:
+        packages:
+          - initscripts
+          - libsemanage-python
+          - libselinux-python
+          # PostgreSQL 11.2 repository
+          - "https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
+  roles:
+    - role: geerlingguy.postgresql
+      become: yes
+      vars:
+        postgres_version: 9
+        postgres_version_minor: 6
+        postgresql_version: "{{ postgres_version }}.{{ postgres_version_minor }}"
+        postgresql_python_library: python-psycopg2
+        postgresql_user: postgres
+        postgresql_group: postgres
+        postgresql_data_dir: "/var/lib/pgsql/{{ postgresql_version }}/data"
+        postgresql_config_path: "/var/lib/pgsql/{{ postgresql_version }}/data"
+        postgresql_bin_path: "/usr/pgsql-{{ postgresql_version }}/bin"
+        postgresql_daemon: "postgresql-{{ postgresql_version }}.service"
+        postgresql_service_state: started
+        postgresql_service_enabled: true
+        postgresql_packages:
+          - "postgresql{{ postgres_version }}{{ postgres_version_minor }}"
+          - "postgresql{{ postgres_version }}{{ postgres_version_minor }}-server"
+          - "postgresql{{ postgres_version }}{{ postgres_version_minor }}-libs"
+          - "postgresql{{ postgres_version }}{{ postgres_version_minor }}-contrib"
+          # forca instalacao pela role
+          - python-psycopg2
+        postgresql_enablerepo: "pgdg{{ postgres_version }}{{ postgres_version_minor }}"
+        postgresql_databases:
+          - name: zabbix
+        postgresql_users:
+          - name: zabbix
+            password: zabbix

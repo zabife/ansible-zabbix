@@ -11,7 +11,12 @@ lint:
     config-file: molecule/default/yamllint.yml
 platforms:
   - name: instance
-    image: centos:7
+    image: centos/systemd
+    command: /sbin/init
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    tmpfs:
+      - /run
 provisioner:
   name: ansible
   lint:

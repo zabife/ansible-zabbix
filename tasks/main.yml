@@ -1,2 +1,4 @@
 ---
 # tasks file for zabbix
+- name: Debug zabbix
+  debug: "{{ zabbix_version }}"

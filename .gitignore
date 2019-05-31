@@ -2,7 +2,7 @@
 __pycache__/
 .molecule/
 .pytest_cache/
-*-console.log
+*.log
 *.egg-info/
 *.py[cod]
 *.retry
