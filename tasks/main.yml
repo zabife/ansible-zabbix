@@ -26,3 +26,7 @@
     zabbix_server_dbport: "{{ ansible_env.ZABBIX_SERVER_DBPORT | default(5432) }}"
     zabbix_database_creation: true
     zabbix_server_install_database_client: true
+
+- name: Import Zabbix Web role
+  include_role:
+    name: dj-wasabi.zabbix-web
