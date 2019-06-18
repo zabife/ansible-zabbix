@@ -1,4 +1,28 @@
 ---
+- name: Disable nodocs flag
+  replace:
+    path: /etc/yum.conf
+    regexp: '^(tsflags=)(.+)$'
+    replace: '\1'
+
+
 # tasks file for zabbix
-- name: Debug zabbix
-  debug: "{{ zabbix_version }}"
+- name: Import Zabbix role
+  include_role:
+    name: dj-wasabi.zabbix-server
+  vars:
+    # vars file for zabbix
+    zabbix_version: 4.2
+    zabbix_server_package_state: present
+
+    # Zabbix server
+    zabbix_server_name: "{{ ansible_env.ZABBIX_SERVER_NAME | default('zabbix.aeb.gov.br') }}"
+    zabbix_server_database: pgsql
+    zabbix_server_listenport: "{{ ansible_env.ZABBIX_SEVER_LISTENPORT | default(10051) }}"
+    zabbix_server_dbhost: "{{ ansible_env.ZABBIX_SERVER_DBHOST | default('localhost') }}"
+    zabbix_server_dbname: "{{ ansible_env.ZABBIX_SERVER_DBNAME | default('zabbix') }}"
+    zabbix_server_dbuser: "{{ ansible_env.ZABBIX_SERVER_DBUSER | default('zabbix') }}"
+    zabbix_server_dbpassword: "{{ ansible_env.ZABBIX_SERVER_DBPASSWORD | default('zabbix') }}"
+    zabbix_server_dbport: "{{ ansible_env.ZABBIX_SERVER_DBPORT | default(5432) }}"
+    zabbix_database_creation: true
+    zabbix_server_install_database_client: true
