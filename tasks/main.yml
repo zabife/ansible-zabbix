@@ -30,3 +30,5 @@
 - name: Import Zabbix Web role
   include_role:
     name: dj-wasabi.zabbix-web
+  vars:
+    zabbix_url: "{{ ansible_env.ZABBIX_SERVER_NAME | default('zabbix.aeb.gov.br') }}"
